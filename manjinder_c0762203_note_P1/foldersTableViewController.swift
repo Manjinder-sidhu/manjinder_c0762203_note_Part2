@@ -10,6 +10,7 @@ import UIKit
 
 class foldersTableViewController: UITableViewController {
     var folders: [String]?
+    var mytextfield = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,71 +19,108 @@ class foldersTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        folders = []
+        folders = [String]()
+        
         self.navigationItem.rightBarButtonItem = editButtonItem
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return folders?.count ?? 0
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        
-        return cell
-    }
-
+  
     
-
+    @IBOutlet var tableviewdata: UITableView!
+    
     @IBAction func newfolderbtn(_ sender: Any) {
         let alertcontroller = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
-                      alertcontroller.addTextField { (textField) in
-                          textField.text = "name"}
-                      let okaction = UIAlertAction(title: "ok", style: .cancel, handler: nil)
-                      let additemaction = UIAlertAction(title: "Add Item", style: .default)
-                      alertcontroller.addAction(okaction)
-                      alertcontroller.addAction(additemaction)
+        
+        
+//        let action = UIAlertAction(title: "Name Input", style: .default) { (alertAction) in
+//         textfield = alertcontroller.textFields![0] as UITextField
+//        }
+//
+    
+        alertcontroller.addTextField { (textField ) in
+                        textField.placeholder = "name"
+            textField.text = ""
+        }
+        let CancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let AddItemAction = UIAlertAction(title: "Add Item", style: .default){
+            
+            (action) in
+            let txtfield = alertcontroller.textFields![0]
+            
+           
+            /// get the textfield instance form textFields array
+            self.folders!.append(txtfield.text!)
+            self.tableviewdata.reloadData()
+            
+        }
+                      alertcontroller.addAction(CancelAction)
+                      alertcontroller.addAction(AddItemAction)
                       self.present(alertcontroller, animated: true, completion: nil)
-               
+        
+        
     }
     
+      // MARK: - Table view data source
 
-    /*
+        override func numberOfSections(in tableView: UITableView) -> Int {
+            // #warning Incomplete implementation, return the number of sections
+            return 1
+        }
+
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            // #warning Incomplete implementation, return the number of rows
+            return folders?.count ?? 0
+        }
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+           
+            
+           if let cell = tableView.dequeueReusableCell(withIdentifier: "folderscell")
+                {
+                   let newitem = folders?[indexPath.row]
+                    cell.textLabel?.text = newitem
+                    cell.imageView?.image = UIImage(named: "folder-icon")
+                    
+                    
+                    return cell
+                    
+                
+            // Configure the cell...
+            }
+            return UITableViewCell()
+            }
+    //}
+        
+
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+   
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            folders?.remove(at: indexPath.row)
+            tableviewdata.reloadData()
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//         else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
-    /*
+    
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
-    */
+   
 
     /*
     // Override to support conditional rearranging of the table view.

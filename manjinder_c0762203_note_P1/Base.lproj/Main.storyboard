@@ -43,7 +43,7 @@
                                             <rect key="frame" x="20" y="7" width="35" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-L9-OLl">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLd-L9-OLl">
                                             <rect key="frame" x="77" y="7" width="140" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -68,12 +68,17 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="K5l-I5-eiE"/>
+                    <navigationItem key="navigationItem" id="K5l-I5-eiE">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="edit" id="Jb7-pb-gal"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableviewdata" destination="qrS-x2-mSF" id="Kbn-Xj-YDd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xay-yi-Mfm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1249.2753623188407" y="-280.58035714285711"/>
+            <point key="canvasLocation" x="-1126" y="-288"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nv3-gP-H87">
@@ -89,7 +94,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aNg-rb-g18" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2166" y="-280"/>
+            <point key="canvasLocation" x="-1852" y="-289"/>
         </scene>
     </scenes>
 </document>
