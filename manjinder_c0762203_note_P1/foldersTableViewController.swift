@@ -72,26 +72,44 @@ class foldersTableViewController: UITableViewController {
             return folders?.count ?? 0
         }
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-           
+         // Configure the cell...
             
            if let cell = tableView.dequeueReusableCell(withIdentifier: "folderscell")
                 {
                    let newitem = folders?[indexPath.row]
                     cell.textLabel?.text = newitem
                     cell.imageView?.image = UIImage(named: "folder-icon")
-                    
-                    
                     return cell
-                    
-                
-            // Configure the cell...
+           
             }
             return UITableViewCell()
             }
-    //}
-        
-
+   
+      
+    //remove round delete button
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if (self.tableView.isEditing){
+            return .none
+        }
+        return  .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Folders"
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       return 50
+    
+    }
+   override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        view.tintColor = UIColor.white
+    }
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -99,26 +117,17 @@ class foldersTableViewController: UITableViewController {
         return true
     }
    
-
-    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             folders?.remove(at: indexPath.row)
             tableviewdata.reloadData()
-            // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//         else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
-
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
     }
    
 
