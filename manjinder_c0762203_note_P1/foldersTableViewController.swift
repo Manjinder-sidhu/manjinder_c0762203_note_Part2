@@ -11,9 +11,8 @@ import UIKit
 class foldersTableViewController: UITableViewController {
     var folders: [String]?
     var mytextfield = ""
-    
-    var scrollview: UIScrollView!
-    var containerview = UIView()
+    var curIndex = -1
+    var folderitems : [String]?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,31 +25,18 @@ class foldersTableViewController: UITableViewController {
         
         self.tableView.backgroundColor =  . lightGray
         self.navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.black
+
         
          self.navigationController?.toolbar.barTintColor = UIColor.lightGray
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        
-//        self.navigationItem.largeTitleDisplayMode =      self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-//       let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1000))
-//       footerView.backgroundColor = bottomColor
-//       self.tableView.tableFooterView?.addSubview(footerView)
-//
-//        self.navigationController?.navigationBar.barTintColor = .lightGray
     }
 
-  
-    
     @IBOutlet var tableviewdata: UITableView!
+    
+    
     
     @IBAction func newfolderbtn(_ sender: Any) {
         let alertcontroller = UIAlertController(title: "New Folder", message: "Enter a name for this folder", preferredStyle: .alert)
         
-    
-    
         alertcontroller.addTextField { (textField ) in
                         textField.placeholder = "name"
             textField.text = ""
@@ -61,17 +47,29 @@ class foldersTableViewController: UITableViewController {
             (action) in
             let txtfield = alertcontroller.textFields![0]
             /// get the textfield instance form textFields array
-            self.folders!.append(txtfield.text!)
+
+             let i = txtfield.text
+
+                if self.folders!.contains(i!){
+
+                let alert2 = UIAlertController(title: " Name Taken", message: "Please choose a different name", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert2.addAction(okAction)
+                    self.present(alert2, animated: true, completion:  nil)
+
+            }
+                else {
+                     self.folders!.append(i!)
+            }
             self.tableviewdata.reloadData()
-            
         }
-       AddItemAction.setValue(UIColor.black, forKey: "titleTextColor")
+                      AddItemAction.setValue(UIColor.black, forKey: "titleTextColor")
                       alertcontroller.addAction(CancelAction)
                       alertcontroller.addAction(AddItemAction)
                       self.present(alertcontroller, animated: true, completion: nil)
-        
-        
     }
+    
+    
     
       // MARK: - Table view data source
 
@@ -93,6 +91,7 @@ class foldersTableViewController: UITableViewController {
                     cell.textLabel?.text = newitem
                     cell.imageView?.image = UIImage(named: "folder-icon")
                     cell.backgroundColor = .lightGray
+                    cell.detailTextLabel?.text = "0"
                     return cell
            
             }
@@ -151,14 +150,34 @@ class foldersTableViewController: UITableViewController {
     }
     */
 
-    /*
+   
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//    
+//    if let detailView = segue.destination as? TaskdetailViewController{
+//        detailView.tasktable = self
+//        if let tableviewcell = sender as? UITableViewCell {
+//            if let index = tableView.indexPath(for: tableviewcell)?.row {
+//                detailView.textString = folderitems![index]
+//                curIndex = index
+//            }
+//        }
+//           }
+//    
+//    }
+//    func updateText(text : String){
+//        guard folderitems != nil && curIndex != -1 else {
+//            return
+//        }
+//       folderitems![curIndex] = text
+//        let indexPath = IndexPath(item: curIndex, section: 0)
+//        tableView.reloadRows(at: [indexPath], with: .none)
+//    }
+
+   
 
 }
