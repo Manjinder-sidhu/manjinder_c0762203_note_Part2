@@ -39,20 +39,37 @@ class notesTableViewController: UITableViewController {
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "note")
             {
-                       if let label = cell.viewWithTag(1) as?
-                           UILabel{
-                           label.text = arrayname
-                       }
-
-            cell.accessoryType = .detailButton
+//                       if let label = cell.viewWithTag(1) as?
+//                           UILabel{
+//                           label.text = arrayname
+//                       }
+                
+                cell.textLabel?.text = arrayname
+                cell.accessoryType = .detailButton
             cell.backgroundColor = .lightGray
             return cell
         
                 }
             } 
             return UITableViewCell()
-    
     }
+    
+   
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+    }
+    
+    
+
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.accessoryType = .detailButton
+    }
+  
+    
+    
+    
+    
         /*
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
