@@ -8,7 +8,16 @@
 
 import UIKit
 
+//struct  FolderofNotes {
+//   var title = String()
+//    var SectionData = [String]()
+//   var opened = Bool()
+//}
+
 class foldersTableViewController: UITableViewController {
+    
+
+    
     var folders: [String]?
     var mytextfield = ""
     var curIndex = -1

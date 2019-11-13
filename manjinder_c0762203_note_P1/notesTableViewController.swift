@@ -10,7 +10,15 @@ import UIKit
 
 class notesTableViewController: UITableViewController {
 
-        var notes : [String]?
+    var counter : Int?
+    @IBOutlet weak var Enablebtn: UIBarButtonItem!
+    @IBOutlet weak var trashvar: UIBarButtonItem!
+    
+    @IBOutlet weak var MoveVar: UIBarButtonItem!
+    
+    var selectedrows : [String]?
+    
+    var notes : [String]?
     var curIndex = -1
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -22,6 +30,9 @@ class notesTableViewController: UITableViewController {
             // self.navigationItem.rightBarButtonItem = self.editButtonItem
         // MARK: - Table view data source
     notes = []
+            trashvar.isEnabled = false
+            MoveVar.isEnabled = false
+            
         }
         override func numberOfSections(in tableView: UITableView) -> Int {
             // #warning Incomplete implementation, return the number of sections
@@ -39,11 +50,6 @@ class notesTableViewController: UITableViewController {
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "note")
             {
-//                       if let label = cell.viewWithTag(1) as?
-//                           UILabel{
-//                           label.text = arrayname
-//                       }
-                
                 cell.textLabel?.text = arrayname
                 cell.accessoryType = .detailButton
             cell.backgroundColor = .lightGray
@@ -58,6 +64,8 @@ class notesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        let i = notes![indexPath.row]
+        selectedrows?.append(i)
     }
     
     
@@ -67,6 +75,54 @@ class notesTableViewController: UITableViewController {
     }
   
     
+    
+   
+    @IBAction func Enablebtn(_ sender: UIBarButtonItem) {
+        if  trashvar.isEnabled == false && MoveVar.isEnabled == false{
+                    trashvar.isEnabled = true
+                   MoveVar.isEnabled = true
+        }
+       else  if trashvar.isEnabled == true &&  MoveVar.isEnabled == true{
+            trashvar.isEnabled = false
+            MoveVar.isEnabled = false
+        }
+    }
+    
+     
+    
+    @IBAction func Trashcells(_ sender: Any) {
+        
+        let alertcontroller = UIAlertController(title: "Delete ", message: "Are you sure", preferredStyle: .alert)
+               
+               let CancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               CancelAction.setValue(UIColor.brown, forKey: "titleTextColor")
+               let trashItemAction = UIAlertAction(title: "Delete", style: .default)
+               {
+                   (action) in
+                
+                if let selectedRows = self.tableView.indexPathsForSelectedRows {
+             
+                var items = [String]()
+                for indexPath in selectedRows  {
+                    items.append(self.notes![indexPath.row])
+                }
+                for item in items {
+                    if let index = self.notes?.index(of: item) {
+                        self.notes?.remove(at: index)
+                    }
+                }
+                    self.tableView.deleteRows(at: selectedRows, with: .automatic)
+                    self.tableView.reloadData()
+                }
+                }
+                             trashItemAction.setValue(UIColor.red, forKey: "titleTextColor")
+                             alertcontroller.addAction(CancelAction)
+                             alertcontroller.addAction(trashItemAction)
+                             self.present(alertcontroller, animated: true, completion: nil)
+           }
+        
+        
+        
     
     
     

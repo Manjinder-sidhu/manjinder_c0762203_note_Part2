@@ -104,6 +104,9 @@
                     <toolbarItems>
                         <barButtonItem systemItem="trash" id="Cfw-7X-IRI">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="Trashcells:" destination="ER4-5n-2UW" id="nyU-sn-yly"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem image="tray.and.arrow.down" catalog="system" id="82O-C0-z9N">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -119,9 +122,16 @@
                     <navigationItem key="navigationItem" title="Notes" id="Xzz-v1-pW4">
                         <barButtonItem key="rightBarButtonItem" image="ellipsis" catalog="system" style="plain" id="5ep-s1-Pcy">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="Enablebtn:" destination="ER4-5n-2UW" id="hhp-iX-88q"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="MoveVar" destination="82O-C0-z9N" id="ldU-Uf-N3U"/>
+                        <outlet property="trashvar" destination="Cfw-7X-IRI" id="38j-DW-LCj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q4q-V1-lKw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
