@@ -13,11 +13,11 @@ import UIKit
 
 
 class foldersTableViewController: UITableViewController {
-//    var collection = FolderofNotes(FolderName: "", Notes: [String]())
+
 //    var folders: [String]?
     var mytextfield = ""
     var curIndex = -1
-    var folderitems : [String]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -162,7 +162,9 @@ class foldersTableViewController: UITableViewController {
    
     
     
-    
+    func reloadfolderdetails(){
+        tableView.reloadData()
+    }
     
     /*
     // Override to support conditional rearranging of the table view.
@@ -191,6 +193,8 @@ class foldersTableViewController: UITableViewController {
            }
 
     }
+   
+    
     
 
    

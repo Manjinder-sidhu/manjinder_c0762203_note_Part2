@@ -21,7 +21,7 @@ class notesTableViewController: UITableViewController {
     
     @IBOutlet weak var MoveVar: UIBarButtonItem!
     
-//    var selectedrows : [String]?
+    var selectedrows : [IndexPath]?
     
     var notes : [String]?
     var curIndex = -1
@@ -50,8 +50,7 @@ class notesTableViewController: UITableViewController {
            
         }
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//            if let arrayname =
-//            {
+
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "note")
             {
@@ -60,7 +59,7 @@ class notesTableViewController: UITableViewController {
             cell.backgroundColor = .lightGray
             return cell
         
-//                }
+
             } 
             return UITableViewCell()
     }
@@ -109,7 +108,7 @@ class notesTableViewController: UITableViewController {
              
                 var items = [String]()
                 for indexPath in selectedRows  {
-                    items.append(self.notes![indexPath.row])
+                    items.append(FolderofNotes.folders[(self.foldersdelegate?.curIndex)!].notes[indexPath.row])
                 }
                 for item in items {
                     if let index = FolderofNotes.folders[(self.foldersdelegate?.curIndex)!].notes.index(of: item) {
@@ -128,10 +127,14 @@ class notesTableViewController: UITableViewController {
         
         
         
+   
+    
+    
+      
     
     
     
-        /*
+    /*
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
@@ -186,11 +189,16 @@ class notesTableViewController: UITableViewController {
                 detailView.tasktable = self
                 if let tableviewcell = sender as? UITableViewCell {
                            if let index = tableView.indexPath(for: tableviewcell)?.row {
-                               detailView.textString = notes![index]
+                               detailView.textString =  FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes[index]
                                curIndex = index
                            }
                        }
             }
+        
+        
+        if let move = segue.destination as? moveTofloderViewController{
+            move.notesdelegate = self
+        }
             // Get the new view controller using segue.destination.
             // Pass the selected object to the new view controller.
         }
@@ -207,15 +215,47 @@ class notesTableViewController: UITableViewController {
     }
     else if notes != nil && curIndex == -1 {
         FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes.append(text)
-       
+        tableView.reloadData()
+        foldersdelegate?.reloadfolderdetails()
 //        let foldernew = FolderofNotes(SectionData: notes!)
         
+        return
         
-        
-         tableView.reloadData()
+         
     }
    
     }
+    
+    func notestobemoved(index : Int){
+        selectedrows = tableView.indexPathsForSelectedRows!
+        
+        for i in selectedrows!{
+            
+            let move = FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes[i.row]
+            FolderofNotes.folders[index].notes.append(move)
+        }
+        deleterows()
+    }
+    
+    
+    func deleterows(){
+        selectedrows = tableView.indexPathsForSelectedRows!
+        var item = [String]()
+        for indexpath in selectedrows!{
+            item.append(FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes[indexpath.row])
+            
+        }
+        for n in item{
+            if let index = FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes.firstIndex(of: n)
+            {
+                FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes.remove(at: index)
+            }
+        }
+        tableView.reloadData()
+        foldersdelegate?.tableView.reloadData()
+    }
+    
+    
     
     }
 
