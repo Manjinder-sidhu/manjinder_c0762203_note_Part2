@@ -8,17 +8,13 @@
 
 import UIKit
 
-//struct  FolderofNotes {
-//   var title = String()
-//    var SectionData = [String]()
-//   var opened = Bool()
-//}
+
+
+
 
 class foldersTableViewController: UITableViewController {
-    
-
-    
-    var folders: [String]?
+//    var collection = FolderofNotes(FolderName: "", Notes: [String]())
+//    var folders: [String]?
     var mytextfield = ""
     var curIndex = -1
     var folderitems : [String]?
@@ -29,13 +25,11 @@ class foldersTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        folders = [String]()
+//        folders = [String]()
         
-        
+//        var collection = FolderofNotes(FolderName: "", Notes: [String]())
         self.tableView.backgroundColor =  . lightGray
         self.navigationItem.rightBarButtonItem = editButtonItem
-
-        
          self.navigationController?.toolbar.barTintColor = UIColor.lightGray
     }
 
@@ -54,24 +48,42 @@ class foldersTableViewController: UITableViewController {
         CancelAction.setValue(UIColor.brown, forKey: "titleTextColor")
         let AddItemAction = UIAlertAction(title: "Add Item", style: .default){
             (action) in
-            let txtfield = alertcontroller.textFields![0]
-            /// get the textfield instance form textFields array
-
-             let i = txtfield.text
-
-                if self.folders!.contains(i!){
-
+//            let txtfield = alertcontroller.textFields![0]
+//            /// get the textfield instance form textFields array
+//
+//             let i = txtfield.text
+//
+//            if FolderofNotes.folders.contains(i!){
+//
+//
+            
+            let name = alertcontroller.textFields?.first?.text
+            let foldername = FolderofNotes(FolderName: name!, notes: [])
+            var flag = false
+            for i in FolderofNotes.folders{
+                let name =  foldername.FolderName
+                if name == i.FolderName{
+                    flag = true
+                    break
+                }
+            }
+            if flag {
                 let alert2 = UIAlertController(title: " Name Taken", message: "Please choose a different name", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                    alert2.addAction(okAction)
-                    self.present(alert2, animated: true, completion:  nil)
+                                let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                                    alert2.addAction(okAction)
+                                    self.present(alert2, animated: true, completion:  nil)
+                
+                            }
+                                else {
+                                FolderofNotes.folders.append(foldername)
 
+                self.tableviewdata.reloadData()
+                            }
+//                            self.tableviewdata.reloadData()
             }
-                else {
-                     self.folders!.append(i!)
-            }
-            self.tableviewdata.reloadData()
-        }
+        
+        
+            
                       AddItemAction.setValue(UIColor.black, forKey: "titleTextColor")
                       alertcontroller.addAction(CancelAction)
                       alertcontroller.addAction(AddItemAction)
@@ -89,18 +101,19 @@ class foldersTableViewController: UITableViewController {
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
-            return folders?.count ?? 0
+            return FolderofNotes.folders.count
         }
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          // Configure the cell...
             
            if let cell = tableView.dequeueReusableCell(withIdentifier: "folderscell")
                 {
-                   let newitem = folders?[indexPath.row]
+                    let newitem = FolderofNotes.folders[indexPath.row].FolderName
                     cell.textLabel?.text = newitem
                     cell.imageView?.image = UIImage(named: "folder-icon")
-                    cell.backgroundColor = .lightGray
-                    cell.detailTextLabel?.text = "0"
+                    cell.detailTextLabel?.text = "\(FolderofNotes.folders[indexPath.row].notes.count)"
+//                    cell.backgroundColor = .lightGray
+                    cell.detailTextLabel?.textColor = .white
                     return cell
            
             }
@@ -137,7 +150,7 @@ class foldersTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            folders?.remove(at: indexPath.row)
+            FolderofNotes.folders.remove(at: indexPath.row)
             tableviewdata.reloadData()
         }
     }
@@ -163,29 +176,22 @@ class foldersTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    
-//    if let detailView = segue.destination as? TaskdetailViewController{
-//        detailView.tasktable = self
-//        if let tableviewcell = sender as? UITableViewCell {
-//            if let index = tableView.indexPath(for: tableviewcell)?.row {
-//                detailView.textString = folderitems![index]
-//                curIndex = index
-//            }
-//        }
-//           }
-//    
-//    }
-//    func updateText(text : String){
-//        guard folderitems != nil && curIndex != -1 else {
-//            return
-//        }
-//       folderitems![curIndex] = text
-//        let indexPath = IndexPath(item: curIndex, section: 0)
-//        tableView.reloadRows(at: [indexPath], with: .none)
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+
+    if let detailView = segue.destination as? notesTableViewController{
+        detailView.foldersdelegate = self
+        if let tableviewcell = sender as? UITableViewCell {
+            if let index = tableView.indexPath(for: tableviewcell)?.row {
+               
+                curIndex = index
+            }
+        }
+           }
+
+    }
+    
 
    
 

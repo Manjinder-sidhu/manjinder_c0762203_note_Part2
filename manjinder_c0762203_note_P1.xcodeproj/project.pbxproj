@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D11073D237DC17C0086A050 /* collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073C237DC17C0086A050 /* collection.swift */; };
+		8D11073F237DCCFD0086A050 /* moveTofloderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11073E237DCCFD0086A050 /* moveTofloderViewController.swift */; };
 		8D126F1C2379FFD90017D682 /* notesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D126F1B2379FFD90017D682 /* notesTableViewController.swift */; };
 		8D803C3923789CE500257854 /* TaskdetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D803C3823789CE500257854 /* TaskdetailViewController.swift */; };
 		8DA39CF12374533F00A15D4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA39CF02374533F00A15D4B /* AppDelegate.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D11073C237DC17C0086A050 /* collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collection.swift; sourceTree = "<group>"; };
+		8D11073E237DCCFD0086A050 /* moveTofloderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moveTofloderViewController.swift; sourceTree = "<group>"; };
 		8D126F1B2379FFD90017D682 /* notesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notesTableViewController.swift; sourceTree = "<group>"; };
 		8D803C3823789CE500257854 /* TaskdetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskdetailViewController.swift; sourceTree = "<group>"; };
 		8DA39CED2374533F00A15D4B /* manjinder_c0762203_note_P1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manjinder_c0762203_note_P1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +76,8 @@
 				8DDAE94F23749F220037F2F6 /* foldersTableViewController.swift */,
 				8D803C3823789CE500257854 /* TaskdetailViewController.swift */,
 				8D126F1B2379FFD90017D682 /* notesTableViewController.swift */,
+				8D11073C237DC17C0086A050 /* collection.swift */,
+				8D11073E237DCCFD0086A050 /* moveTofloderViewController.swift */,
 			);
 			path = manjinder_c0762203_note_P1;
 			sourceTree = "<group>";
@@ -160,7 +166,9 @@
 				8D126F1C2379FFD90017D682 /* notesTableViewController.swift in Sources */,
 				8DDAE95023749F220037F2F6 /* foldersTableViewController.swift in Sources */,
 				8D803C3923789CE500257854 /* TaskdetailViewController.swift in Sources */,
+				8D11073F237DCCFD0086A050 /* moveTofloderViewController.swift in Sources */,
 				8DA39CF32374533F00A15D4B /* SceneDelegate.swift in Sources */,
+				8D11073D237DC17C0086A050 /* collection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

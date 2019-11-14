@@ -8,15 +8,20 @@
 
 import UIKit
 
+
+
+
 class notesTableViewController: UITableViewController {
 
-    var counter : Int?
+    
+    var foldersdelegate : foldersTableViewController?
+   
     @IBOutlet weak var Enablebtn: UIBarButtonItem!
     @IBOutlet weak var trashvar: UIBarButtonItem!
     
     @IBOutlet weak var MoveVar: UIBarButtonItem!
     
-    var selectedrows : [String]?
+//    var selectedrows : [String]?
     
     var notes : [String]?
     var curIndex = -1
@@ -40,22 +45,22 @@ class notesTableViewController: UITableViewController {
         }
 
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return notes?.count ?? 0
+            return FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes.count
             // #warning Incomplete implementation, return the number of rows
            
         }
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            if let arrayname = notes?[indexPath.row]
-            {
+//            if let arrayname =
+//            {
 
             if let cell = tableView.dequeueReusableCell(withIdentifier: "note")
             {
-                cell.textLabel?.text = arrayname
+                cell.textLabel?.text = FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes[indexPath.row]
                 cell.accessoryType = .detailButton
             cell.backgroundColor = .lightGray
             return cell
         
-                }
+//                }
             } 
             return UITableViewCell()
     }
@@ -64,8 +69,8 @@ class notesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        let i = notes![indexPath.row]
-        selectedrows?.append(i)
+//        let i = notes![indexPath.row]
+//        selectedrows?.append(i)
     }
     
     
@@ -107,8 +112,8 @@ class notesTableViewController: UITableViewController {
                     items.append(self.notes![indexPath.row])
                 }
                 for item in items {
-                    if let index = self.notes?.index(of: item) {
-                        self.notes?.remove(at: index)
+                    if let index = FolderofNotes.folders[(self.foldersdelegate?.curIndex)!].notes.index(of: item) {
+                        FolderofNotes.folders[(self.foldersdelegate?.curIndex)!].notes.remove(at: index)
                     }
                 }
                     self.tableView.deleteRows(at: selectedRows, with: .automatic)
@@ -195,13 +200,18 @@ class notesTableViewController: UITableViewController {
     
    func updateText(text : String){
     if curIndex != -1 && notes != nil {
-       notes![curIndex] = text
+      FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes[curIndex] = text
         let indexPath = IndexPath(item: curIndex, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
         curIndex = -1
     }
     else if notes != nil && curIndex == -1 {
-         notes?.append(text)
+        FolderofNotes.folders[(foldersdelegate?.curIndex)!].notes.append(text)
+       
+//        let foldernew = FolderofNotes(SectionData: notes!)
+        
+        
+        
          tableView.reloadData()
     }
    
